@@ -30,8 +30,11 @@ mock-timer = []
 
 [dependencies]
 # Async runtime
-tokio = { version = "1.35", features = ["time", "sync", "rt", "macros"], optional = true }
+tokio = { version = "1.35", features = ["time", "sync", "rt", "rt-multi-thread", "macros"], optional = true }
 tokio-uring = { version = "0.5", optional = true }
+
+# System utilities
+num_cpus = "1.16"
 
 # System calls
 libc = { version = "0.2", optional = true }
@@ -48,8 +51,8 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 # Serialization (for cross-language IPC)
 serde = { version = "1.0", features = ["derive"], optional = true }
 
-# Metrics (for performance monitoring]
-metrics = "0.23"
+# Metrics (for performance monitoring)
+metrics = { version = "0.23", optional = true }
 
 [dev-dependencies]
 # Testing
@@ -67,34 +70,36 @@ mockall = "0.12"
 name = "realtime_core"
 path = "src/lib.rs"
 
-[[example]]
-name = "basic_timer"
-path = "examples/basic_timer.rs"
+# Examples (TODO: Create these files)
+# [[example]]
+# name = "basic_timer"
+# path = "examples/basic_timer.rs"
 
-[[example]]
-name = "rate_control"
-path = "examples/rate_control.rs"
+# [[example]]
+# name = "rate_control"
+# path = "examples/rate_control.rs"
 
-[[example]]
-name = "cpu_isolation"
-path = "examples/cpu_isolation.rs"
+# [[example]]
+# name = "cpu_isolation"
+# path = "examples/cpu_isolation.rs"
 
-[[example]]
-name = "io_uring_timer"
-path = "examples/io_uring_timer.rs"
-required-features = ["io-uring"]
+# [[example]]
+# name = "io_uring_timer"
+# path = "examples/io_uring_timer.rs"
+# required-features = ["io-uring"]
 
-[[example]]
-name = "equilibrium_integration"
-path = "examples/equilibrium_integration.rs"
+# [[example]]
+# name = "equilibrium_integration"
+# path = "examples/equilibrium_integration.rs"
 
-[[bench]]
-name = "timer_jitter"
-harness = false
+# Benchmarks (TODO: Create these files)
+# [[bench]]
+# name = "timer_jitter"
+# harness = false
 
-[[bench]]
-name = "scheduling_overhead"
-harness = false
+# [[bench]]
+# name = "scheduling_overhead"
+# harness = false
 
 [profile.release]
 # Optimize for performance
@@ -105,7 +110,7 @@ panic = "abort"
 strip = true
 
 [profile.bench]
-inherit = "release"
+inherits = "release"
 debug = true
 
 [package.metadata.docs.rs]
